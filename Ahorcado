@@ -1,0 +1,63 @@
+# include <iostream>
+# include <string>
+using namespace std;
+
+string word_original;
+string word_playing;
+int lifes;
+
+void playing();
+void add(char x);
+void start();
+
+int main() {
+	start();
+	playing();
+	while (lifes > 0 && word_playing != word_original) {
+		char x;
+		cin >> x;
+		add(x);
+		playing();
+	}
+	if (lifes > 0) cout << "You Win!" << endl;
+	else cout << "You Lose! The original was: " << word_original << endl;
+}
+
+void playing() {
+	cout << "lifes: " << lifes << endl;
+	cout << word_playing << endl;
+}
+
+
+
+void start() {
+	lifes = 3;
+	word_original = "Hola mundo";
+
+	for (int i = 0; i < word_original.length(); i++) {
+		if (word_original[i] >= 'A' && word_original[1] <= 'Z') {
+			word_original[i] += 32;
+		}
+	}
+
+	for (int i = 0; i < word_original.length(); i++) {
+		if (word_original[i] >= 'a' && word_original[i] <= 'z') {
+			word_playing += "-";
+		}
+		else {
+			word_original += word_original[i];
+		}
+	}
+}
+
+void add(char x) {
+
+	bool loselifes = true;
+
+	for (int i = 0; i < word_original.length(); i++) {
+		if (x = word_original[i]) {
+			loselifes = false;
+			word_playing[i] = x;
+		}
+	}
+	if (loselifes) lifes--;
